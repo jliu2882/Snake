@@ -1,5 +1,3 @@
-package Snake;
-
 public class Board {
     Object[][] board;
     Snake snake;

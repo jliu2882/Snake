@@ -1,5 +1,3 @@
-package Snake;
-
 public class Body {
     public int x,y;
 

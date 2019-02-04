@@ -1,5 +1,3 @@
-package Snake;
-
 import java.util.ArrayList;
 
 public class Snake {

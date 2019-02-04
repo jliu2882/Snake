@@ -1,5 +1,3 @@
-package Snake;
-
 import javafx.stage.Stage;
 
 public class Constants {
