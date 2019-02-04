@@ -26,18 +26,34 @@ public class Body {
         this.y = y;
     }
 
-    public void move(int direction, ArrayList<Body> snake){
-        if(direction==Constants.UP){
-            this.setY(snake.get(1).getY()+1);
+    public void move(int direction, Snake snake){
+        if(direction * -1 == snake.getDirection()){
+            if (snake.getDirection() == Directions.UP) {
+                this.setY(snake.snake.get(1).getY() + 1);
+            }
+            else if (snake.getDirection() == Directions.DOWN) {
+                this.setY(snake.snake.get(1).getY() - 1);
+            }
+            else if (snake.getDirection() == Directions.LEFT) {
+                this.setX(snake.snake.get(1).getX() + 1);
+            }
+            else if (snake.getDirection() == Directions.RIGHT) {
+                this.setX(snake.snake.get(1).getX() - 1);
+            }
         }
-        if(direction==Constants.DOWN){
-            this.setY(snake.get(1).getY()-1);
-        }
-        if(direction==Constants.LEFT){
-            this.setX(snake.get(1).getX()+1);
-        }
-        if(direction==Constants.RIGHT){
-            this.setX(snake.get(1).getX()-1);
+        else {
+            if (direction == Directions.UP) {
+                this.setY(snake.snake.get(1).getY() + 1);
+            }
+            else if (direction == Directions.DOWN) {
+                this.setY(snake.snake.get(1).getY() - 1);
+            }
+            else if (direction == Directions.LEFT) {
+                this.setX(snake.snake.get(1).getX() + 1);
+            }
+            else if (direction == Directions.RIGHT) {
+                this.setX(snake.snake.get(1).getX() - 1);
+            }
         }
     }
 }

@@ -16,16 +16,10 @@ public class Constants {
     /** These constants can be changed freely */
     // dimensions of the board
     public static final int HEIGHT = 10;
-    public static final int WIDTH = 10; //WIDTH MUST BE > 6 TODO Implement code s.t. width can be 3(snake init length)
+    public static final int WIDTH = 10;
     //dimensions of the popup screen
     public static double HEIGHT2 = 1000;
     public static double WIDTH2 = 1000;
-
-    /** Don't change these constants */
-    public static final int UP = 0;
-    public static final int DOWN = 1;
-    public static final int LEFT = 2;
-    public static final int RIGHT = 3;
 
     public static double SCALEX = WIDTH2/WIDTH;
     public static double SCALEY = HEIGHT2/HEIGHT;

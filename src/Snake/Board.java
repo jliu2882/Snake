@@ -1,12 +1,12 @@
 package Snake;
 
-public class Grid {
+public class Board {
     Object[][] board;
     Snake snake;
 
-    public Grid(){
+    public Board(){
         board = new Object[Constants.HEIGHT][Constants.WIDTH];
-        snake = new Snake(Constants.RIGHT);
+        snake = new Snake(Directions.RIGHT);
         board[Constants.HEIGHT/2][Constants.WIDTH/2] = snake;
     }
 
