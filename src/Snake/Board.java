@@ -9,8 +9,8 @@ public class Board {
         snake = new Snake(Directions.RIGHT);
         board[Constants.HEIGHT/2][Constants.WIDTH/2] = snake;
     }
-
+    //updates the board
     public void update(){
-//tes
+
     }
 }

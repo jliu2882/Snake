@@ -13,6 +13,7 @@ public class Constants {
         SCALEX = WIDTH2/WIDTH;
         SCALEY = HEIGHT2/HEIGHT;
     }
+
     /** These constants can be changed freely */
     // dimensions of the board
     public static final int HEIGHT = 10;
@@ -21,6 +22,7 @@ public class Constants {
     public static double HEIGHT2 = 1000;
     public static double WIDTH2 = 1000;
 
+    /** These constants should not be touched */
     public static double SCALEX = WIDTH2/WIDTH;
     public static double SCALEY = HEIGHT2/HEIGHT;
 

@@ -19,7 +19,7 @@ public class Snake {
     public void setDirection(int direction) {
         this.direction = direction;
     }
-
+    //update position of snake by moving the last part to the front
     public void update(int direction){
         snake.get(snake.size()-1).move(direction,this);
     }
