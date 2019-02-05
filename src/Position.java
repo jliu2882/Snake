@@ -24,4 +24,9 @@ public class Position {
     public boolean equals(Position b) {
         return this.x == b.getX() && this.y == b.getY();
     }
+
+    @Override
+    public String toString() {
+        return "(" + this.x + "," + this.y + ")";
+    }
 }

@@ -1,14 +1,15 @@
 public class Board {
-    Object[][] board;
-    Snake snake;
+    private Tile[][] board;
 
-    public Board(){
-        board = new Object[Constants.HEIGHT][Constants.WIDTH];
-        snake = new Snake(Directions.RIGHT);
-        board[Constants.HEIGHT/2][Constants.WIDTH/2] = snake;
+    public Board(Tile[][] board) {
+        this.board = board;
     }
-    //updates the board
-    public void update(){
 
+    public Tile getTileAt(Position pos) {
+        return this.board[pos.getX()][pos.getY()];
+    }
+
+    public Tile getTileAt(int x, int y) {
+        return this.board[x][y];
     }
 }
