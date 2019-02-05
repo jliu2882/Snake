@@ -5,11 +5,11 @@ public class Board {
         this.board = board;
     }
 
-    public Tile getTileAt(Position pos) {
+    public Tile tileAt(Position pos) {
         return this.board[pos.getX()][pos.getY()];
     }
 
-    public Tile getTileAt(int x, int y) {
+    public Tile tileAt(int x, int y) {
         return this.board[x][y];
     }
 }
