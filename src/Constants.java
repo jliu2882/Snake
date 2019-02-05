@@ -11,6 +11,6 @@ public class Constants {
     public static final int FOOD_INITIAL_X = Constants.SNAKE_INITIAL_X * 4;
     public static final int FOOD_INITIAL_Y = Constants.SNAKE_INITIAL_Y;
 
-    public static final double SCALE_X = ((double) Constants.SCREEN_X) / ((double) BOARD_X);
-    public static final double SCALE_Y = ((double) Constants.SCREEN_Y) / ((double) BOARD_Y);
+    public static final double SCALE_X = ((double) Constants.SCREEN_X) / ((double) Constants.BOARD_X);
+    public static final double SCALE_Y = ((double) Constants.SCREEN_Y) / ((double) Constants.BOARD_Y);
 }
