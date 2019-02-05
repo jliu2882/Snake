@@ -1,12 +1,17 @@
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class Game {
     private Board board;
     private Pane[][] cells;
 
+    private ArrayList<Entity> entities;
+
     public Game(Pane[][] cells) {
+        // Construct Board
         Tile[][] fBoard = new Tile[Constants.BOARD_X][Constants.BOARD_Y];
         IntStream.range(0, Constants.BOARD_X).forEach(r -> {
             IntStream.range(0, Constants.BOARD_Y).forEach(c -> {
@@ -16,6 +21,15 @@ public class Game {
 
         this.board = new Board(fBoard);
         this.cells = cells;
+
+        // Generate default Entities
+        Food food = new Food(Constants.FOOD_INITIAL_X, Constants.FOOD_INITIAL_Y);
+        this.board.tileAt(Constants.FOOD_INITIAL_X, Constants.FOOD_INITIAL_Y).setEntity(food);
+
+        Snake snake = new Snake(Constants.SNAKE_INITIAL_X, Constants.SNAKE_INITIAL_Y);
+        this.board.tileAt(Constants.SNAKE_INITIAL_X, Constants.SNAKE_INITIAL_Y).setEntity(snake);
+
+        this.entities = new ArrayList<>(Arrays.asList(food, snake));
     }
 
     /**
@@ -48,8 +62,7 @@ public class Game {
         return pos;
     }
 
-    public void update() {
-        // Update graphical components
+    public void refresh() {
         IntStream.range(0, this.cells.length).forEach(r -> {
             Pane[] row = this.cells[r];
             IntStream.range(0, row.length).forEach(c -> {
