@@ -1,5 +1,6 @@
 public class Snake extends Entity {
     private Snake lastPart;
+    private Direction direction = Directions.RIGHT;
 
     public Snake(Position position) {
         super(position);
@@ -21,5 +22,13 @@ public class Snake extends Entity {
 
     public Snake getLastPart() {
         return lastPart;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 }

@@ -21,6 +21,13 @@ public class Position {
         return y;
     }
 
+    public Position shift(Direction direction) {
+        int newX = this.x + direction.getXModifier();
+        int newY = this.y + direction.getYModifier();
+
+        return new Position(newX, newY);
+    }
+
     public boolean equals(Position b) {
         return this.x == b.getX() && this.y == b.getY();
     }

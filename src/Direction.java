@@ -22,4 +22,8 @@ public class Direction {
     public int getYModifier() {
         return yModifier;
     }
+
+    public boolean equals(Direction b) {
+        return this.xModifier == b.getXModifier() && this.yModifier == b.getYModifier();
+    }
 }
