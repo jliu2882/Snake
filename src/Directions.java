@@ -1,10 +1,6 @@
 public class Directions {
-    public static final int UP = 1;
-    public static final int DOWN = -1;
-    public static final int LEFT = -2;
-    public static final int RIGHT = 2;
-
-    public static int inverseOf() {
-        return -1;
-    }
+    public static final Direction UP = new Direction(-1, 0);
+    public static final Direction DOWN = new Direction(1, 0);
+    public static final Direction LEFT = new Direction(0, -1);
+    public static final Direction RIGHT = new Direction(0, 1);
 }
