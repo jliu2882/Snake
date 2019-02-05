@@ -62,6 +62,9 @@ public class Game {
         return pos;
     }
 
+    /**
+     * Refreshes the graphical components, basically updating color
+     */
     public void refresh() {
         IntStream.range(0, this.cells.length).forEach(r -> {
             Pane[] row = this.cells[r];
