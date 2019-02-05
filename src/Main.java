@@ -25,8 +25,9 @@ public class Main extends Application {
             root.addRow(r, cells[r]);
         });
 
-        // Defaults
-
+        // Startup
+        Game mainframe = new Game(cells);
+        mainframe.refresh();
 
         // Finish the graphical setup
         Scene scene = new Scene(root, Constants.SCREEN_X, Constants.SCREEN_Y);
@@ -34,5 +35,8 @@ public class Main extends Application {
         primaryStage.setTitle("Snake");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        // For glory?
+        mainframe.run();
     }
 }
