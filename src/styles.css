@@ -4,7 +4,7 @@ Pane {
     -fx-border-width: 1px;
 }
 
-.has-food {
+.has-snake {
     -fx-background-color: grey;
 }
 
