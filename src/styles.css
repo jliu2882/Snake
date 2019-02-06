@@ -5,7 +5,7 @@ Pane {
 }
 
 .has-snake {
-    -fx-background-color: grey;
+    -fx-background-color: green;
 }
 
 .has-food {

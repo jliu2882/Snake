@@ -83,6 +83,16 @@ public class Game {
                 Position newPosition = lastPosition.shift(snake.getDirection());
 
                 this.board.tileAt(lastPosition).setEntity(null);
+                if(this.board.tileAt(newPosition).getEntity() instanceof Food){
+                    score++;
+                    //TODO implement a longer snek
+                    Position pos = generatePosition();
+                    while(this.board.tileAt(pos).isOccupied()){
+                        pos = generatePosition();
+                    }
+                    Food food = new Food(generateRandomPosition());
+                    this.board.tileAt(food.getPosition()).setEntity(food);
+                }
                 this.board.tileAt(newPosition).setEntity(snake);
                 snake.setPosition(newPosition);
                 if (snake.getLastPart() != null) {
@@ -150,8 +160,7 @@ public class Game {
         else if (keyCode == KeyCode.RIGHT) newDirection = Directions.RIGHT;
         else newDirection = this.root.getDirection();
 
-        if (!newDirection.equals(this.root.getDirection()) &&
-                !newDirection.equals(Direction.inverseOf(this.root.getDirection()))) {
+        if (!newDirection.equals(Direction.inverseOf(this.root.getDirection()))) {
             this.root.setDirection(newDirection);
             // this.forceTick = true;
         }
