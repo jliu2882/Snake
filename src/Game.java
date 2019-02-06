@@ -82,13 +82,6 @@ public class Game {
                 Position lastPosition = snake.getPosition();
                 Position newPosition = lastPosition.shift(snake.getDirection());
 
-                this.board.tileAt(lastPosition).setEntity(null);
-                this.board.tileAt(newPosition).setEntity(snake);
-                snake.setPosition(newPosition);
-                if (snake.getLastPart() != null) {
-                    snake.setDirection(snake.getLastPart().getDirection());
-                }
-
                 if (this.board.tileAt(newPosition).getEntity() instanceof Food) {
                     score++;
                     //TODO implement a longer snek
@@ -98,6 +91,13 @@ public class Game {
                     }
                     Food food = new Food(generateRandomPosition());
                     this.board.tileAt(food.getPosition()).setEntity(food);
+                }
+
+                this.board.tileAt(lastPosition).setEntity(null);
+                this.board.tileAt(newPosition).setEntity(snake);
+                snake.setPosition(newPosition);
+                if (snake.getLastPart() != null) {
+                    snake.setDirection(snake.getLastPart().getDirection());
                 }
             }
         });
