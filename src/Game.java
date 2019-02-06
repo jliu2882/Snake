@@ -83,23 +83,20 @@ public class Game {
                 Position newPosition = lastPosition.shift(snake.getDirection());
 
                 if (this.board.tileAt(newPosition).getEntity() instanceof Food) {
-                    score++;
-                    //TODO implement a longer snek
-                    Position pos = generatePosition();
-                    while (this.board.tileAt(pos).isOccupied()) {
-                        pos = generatePosition();
-                    }
-                    Food food = new Food(generateRandomPosition());
+                    Food food = new Food(this.generatePosition());
                     this.board.tileAt(food.getPosition()).setEntity(food);
 
                     Snake egg = new Snake(lastPosition,snake);
                     this.board.tileAt(lastPosition).setEntity(egg);
                     this.entities.add(egg);
+
+                    score++;
                 }
 
                 this.board.tileAt(lastPosition).setEntity(null);
                 this.board.tileAt(newPosition).setEntity(snake);
                 snake.setPosition(newPosition);
+
                 if (snake.getLastPart() != null) {
                     snake.setDirection(snake.getLastPart().getDirection());
                 }
@@ -140,18 +137,17 @@ public class Game {
                 if (this.tick == 0) this.tick = now;
                 final long dt = now - tick;
 
-                if (_this.forceTick || dt > 1 / Constants.FRAMES_PER_SECOND * Constants.NANO_CONVERSION_RATIO) {
-                    if(_this.board.gameConditionLost)
-                    {
-                        Main.endgame(Main.stage);
-                        this.stop();
-                    } else {
-                        _this.update();
-                        _this.refresh();
+                if (_this.board.gameConditionLost) {
+                    this.stop();
+                    Main.endgame(Main.stage);
+                }
 
-                        this.tick = now;
-                        _this.forceTick = false;
-                    }
+                if (_this.forceTick || dt > 1 / Constants.FRAMES_PER_SECOND * Constants.NANO_CONVERSION_RATIO) {
+                    _this.update();
+                    _this.refresh();
+
+                    this.tick = now;
+                    _this.forceTick = false;
                 }
             }
         }.start();

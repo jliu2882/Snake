@@ -7,12 +7,10 @@ public class Board {
     }
 
     public Tile tileAt(Position pos) {
-
-        if((pos.getX() < 0) || (pos.getY() < 0) || (pos.getX() >= this.board.length) || (pos.getY() >= this.board[0].length))
-        {
+        if (pos.getX() < 0 || pos.getY() < 0 ||
+                pos.getX() >= this.board.length || pos.getY() >= this.board[0].length)
             gameConditionLost = true;
-            return null;
-        }
+
         return this.board[pos.getX()][pos.getY()];
     }
 

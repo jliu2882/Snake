@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import java.util.stream.IntStream;
 
 public class Main extends Application {
-
     public static Stage stage;
 
     public static void main(String[] args) {
@@ -16,7 +15,7 @@ public class Main extends Application {
     }
     @Override
     public void start(Stage primaryStage) {
-        this.stage = primaryStage;
+        stage = primaryStage;
         GridPane root = new GridPane();
         Pane[][] cells = new Pane[Constants.BOARD_X][Constants.BOARD_Y];
 
