@@ -47,7 +47,7 @@ public class Main extends Application {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> mainframe.onKeyPressed(event.getCode()));
     }
 
-//endgame method
+    //endgame method
     //TODO edit the endgame scene rn:it's blank
     public static void endgame(Stage primaryStage)
     {
