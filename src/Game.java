@@ -136,11 +136,17 @@ public class Game {
                 final long dt = now - tick;
 
                 if (_this.forceTick || dt > 1 / Constants.FRAMES_PER_SECOND * Constants.NANO_CONVERSION_RATIO) {
-                    _this.update();
-                    _this.refresh();
+                    if(_this.board.gameConditionLost)
+                    {
+                        Main.endgame(Main.stage);
+                        this.stop();
+                    } else {
+                        _this.update();
+                        _this.refresh();
 
-                    this.tick = now;
-                    _this.forceTick = false;
+                        this.tick = now;
+                        _this.forceTick = false;
+                    }
                 }
             }
         }.start();
@@ -165,4 +171,10 @@ public class Game {
             // this.forceTick = true;
         }
     }
+
+
+    /**
+     * Endgame Scene
+     * Creates a new scene that serves as a "Game Over" screen;
+     */
 }

@@ -8,12 +8,15 @@ import javafx.stage.Stage;
 import java.util.stream.IntStream;
 
 public class Main extends Application {
+
+    public static Stage stage;
+
     public static void main(String[] args) {
         launch(args);
     }
-
     @Override
     public void start(Stage primaryStage) {
+        this.stage = primaryStage;
         GridPane root = new GridPane();
         Pane[][] cells = new Pane[Constants.BOARD_X][Constants.BOARD_Y];
 
@@ -43,4 +46,16 @@ public class Main extends Application {
         // Keybinds
         scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> mainframe.onKeyPressed(event.getCode()));
     }
+
+//endgame method
+    //TODO edit the endgame scene rn:it's blank
+    public static void endgame(Stage primaryStage)
+    {
+        GridPane root = new GridPane();
+        Scene scene = new Scene(root, Constants.SCREEN_X, Constants.SCREEN_Y);
+        primaryStage.setTitle("Snake");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
 }
