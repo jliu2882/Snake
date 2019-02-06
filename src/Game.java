@@ -91,6 +91,10 @@ public class Game {
                     }
                     Food food = new Food(generateRandomPosition());
                     this.board.tileAt(food.getPosition()).setEntity(food);
+
+                    Snake egg = new Snake(lastPosition,snake);
+                    this.board.tileAt(lastPosition).setEntity(egg);
+                    this.entities.add(egg);
                 }
 
                 this.board.tileAt(lastPosition).setEntity(null);
