@@ -26,4 +26,9 @@ public class Direction {
     public boolean equals(Direction b) {
         return this.xModifier == b.getXModifier() && this.yModifier == b.getYModifier();
     }
+
+    @Override
+    public String toString() {
+        return "{" + this.xModifier + "," + this.yModifier + "}";
+    }
 }
