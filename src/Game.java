@@ -10,8 +10,10 @@ public class Game {
     private Board board;
     private Pane[][] cells;
 
-    private Snake root;
-    private ArrayList<Entity> entities;
+    private Snake head;
+    private ArrayList<Snake> entities;
+
+    private Direction nextDirection = Directions.RIGHT;
 
     private int score;
     private boolean forceTick;
@@ -35,8 +37,8 @@ public class Game {
         Snake snake = new Snake(Constants.SNAKE_INITIAL_X, Constants.SNAKE_INITIAL_Y);
         this.board.tileAt(Constants.SNAKE_INITIAL_X, Constants.SNAKE_INITIAL_Y).setEntity(snake);
 
-        this.root = snake; // This is just for convenience's sake, it should just be the first Snake in entities anyway
-        this.entities = new ArrayList<>(Arrays.asList(food, snake));
+        this.head = snake; // This is just for convenience's sake, it should just be the first Snake in entities anyway
+        this.entities = new ArrayList<>(Arrays.asList(snake));
     }
 
     /**
@@ -73,34 +75,43 @@ public class Game {
      * Updates the "backend" part of the board
      */
     public void update() {
+        // Propagate directions down the body, starts at -1 since tail is the end
         IntStream.rangeClosed(1, this.entities.size()).forEach(i -> {
-            Entity entity = this.entities.get(this.entities.size() - i);
+            Snake snake = this.entities.get(this.entities.size() - i);
 
-            // We really don't care about Food
-            if (entity instanceof Snake) {
-                Snake snake = (Snake) entity;
-                Position lastPosition = snake.getPosition();
-                Position newPosition = lastPosition.shift(snake.getDirection());
-
-                if (this.board.tileAt(newPosition).getEntity() instanceof Food) {
-                    Food food = new Food(this.generatePosition());
-                    this.board.tileAt(food.getPosition()).setEntity(food);
-
-                    Snake egg = new Snake(lastPosition,snake);
-                    this.board.tileAt(lastPosition).setEntity(egg);
-                    this.entities.add(egg);
-
-                    score++;
-                }
-
-                this.board.tileAt(lastPosition).setEntity(null);
-                this.board.tileAt(newPosition).setEntity(snake);
-                snake.setPosition(newPosition);
-
-                if (snake.getLastPart() != null) {
-                    snake.setDirection(snake.getLastPart().getDirection());
-                }
+            if (snake.getNextPart() != null) {
+                snake.getNextPart().setDirection(snake.getDirection());
             }
+        });
+
+        // Now we bring the new direction into the head
+        this.head.setDirection(this.nextDirection);
+
+        IntStream.range(0, this.entities.size()).forEach(i -> {
+            Snake snake = this.entities.get(i);
+            Position lastPosition = snake.getPosition();
+            Position newPosition = lastPosition.shift(snake.getDirection());
+
+            if (this.board.tileAt(newPosition).getEntity() instanceof Food) {
+                // Take advantage of how this.entities is setup
+                Snake lastEgg = this.entities.get(this.entities.size() - 1);
+                Position futurePosition = lastEgg.getPosition();
+                Snake egg = new Snake(futurePosition);
+
+                lastEgg.setNextPart(egg);
+                egg.setDirection(lastEgg.getDirection());
+                this.board.tileAt(lastPosition).setEntity(egg);
+                this.entities.add(egg);
+
+                // Generate new food
+                Food food = new Food(this.generatePosition());
+                this.board.tileAt(food.getPosition()).setEntity(food);
+                score++;
+            }
+
+            this.board.tileAt(lastPosition).setEntity(null);
+            this.board.tileAt(newPosition).setEntity(snake);
+            snake.setPosition(newPosition);
         });
     }
 
@@ -165,10 +176,10 @@ public class Game {
         else if (keyCode == KeyCode.DOWN) newDirection = Directions.DOWN;
         else if (keyCode == KeyCode.LEFT) newDirection = Directions.LEFT;
         else if (keyCode == KeyCode.RIGHT) newDirection = Directions.RIGHT;
-        else newDirection = this.root.getDirection();
+        else newDirection = this.head.getDirection();
 
-        if (!newDirection.equals(Direction.inverseOf(this.root.getDirection()))) {
-            this.root.setDirection(newDirection);
+        if (!newDirection.equals(Direction.inverseOf(this.head.getDirection()))) {
+            this.nextDirection = newDirection;
             // this.forceTick = true;
         }
     }
