@@ -6,18 +6,8 @@ public class Snake extends Entity {
         super(position);
     }
 
-    public Snake(Position position, Snake nextPart) {
-        super(position);
-        this.nextPart = nextPart;
-    }
-
     public Snake(int x, int y) {
         super(x, y);
-    }
-
-    public Snake(int x, int y, Snake nextPart) {
-        super(x, y);
-        this.nextPart = nextPart;
     }
 
     public Snake getNextPart() {
