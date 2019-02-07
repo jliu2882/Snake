@@ -184,6 +184,14 @@ public class Game {
         }
     }
 
+    /**
+     * The score registered in the game
+     *
+     * @return the one and only score the player has
+     */
+    public int getScore() {
+        return score;
+    }
 
     /**
      * Endgame Scene
