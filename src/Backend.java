@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Backend {
-    private static final String dbFile = "db.csv";
+    private static final String dbFile = "HighScores.csv";
 
     public static void write(String data) throws IOException {
         PrintWriter buffer = new PrintWriter(new BufferedWriter(new FileWriter(Backend.dbFile, true)));

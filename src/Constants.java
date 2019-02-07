@@ -16,4 +16,7 @@ public class Constants {
 
     public static final double SCALE_X = ((double) Constants.SCREEN_X) / ((double) Constants.BOARD_X);
     public static final double SCALE_Y = ((double) Constants.SCREEN_Y) / ((double) Constants.BOARD_Y);
+
+    public static final int MAX_SCORE_LISTING = 5;
 }
+

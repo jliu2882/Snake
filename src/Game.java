@@ -16,6 +16,7 @@ public class Game {
     private Direction nextDirection = Directions.RIGHT;
 
     private int score;
+    private String username;
     private boolean forceTick;
 
     public Game(Pane[][] cells) {
@@ -195,6 +196,14 @@ public class Game {
      */
     public int getScore() {
         return score;
+    }
+    /**
+     * The username registered in the game
+     *
+     * @return the one and only username the player has
+     */
+    public String getUsername() {
+        return username;
     }
 
     /**
