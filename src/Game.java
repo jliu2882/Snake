@@ -92,6 +92,10 @@ public class Game {
             Position lastPosition = snake.getPosition();
             Position newPosition = lastPosition.shift(snake.getDirection());
 
+            if (this.board.tileAt(newPosition).getEntity() instanceof Snake){
+                Main.endgame(Main.stage);
+            }
+
             if (this.board.tileAt(newPosition).getEntity() instanceof Food) {
                 // Take advantage of how this.entities is setup
                 Snake lastEgg = this.entities.get(this.entities.size() - 1);
@@ -180,7 +184,7 @@ public class Game {
 
         if (!newDirection.equals(Direction.inverseOf(this.head.getDirection()))) {
             this.nextDirection = newDirection;
-            // this.forceTick = true;
+            this.forceTick = true;
         }
     }
 
