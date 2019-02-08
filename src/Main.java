@@ -1,6 +1,9 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -24,6 +27,9 @@ public class Main extends Application {
     }
     @Override
     public void start(Stage primaryStage) {
+        startGame(primaryStage);
+    }
+    public static void startGame(Stage primaryStage){
         //creates a scene for the start screen
         GridPane root0 = new GridPane();
         Scene scene0 = new Scene(root0,Constants.SCREEN_X, Constants.SCREEN_Y);
@@ -31,7 +37,7 @@ public class Main extends Application {
 
         //sets a text field to take username
         Text text = new Text(0, 0, "Enter a username to start the game. The game "
-                      + System.lineSeparator() + " will get harder as your snake gets longer.");
+                + System.lineSeparator() + " will get harder as your snake gets longer.");
         TextField uname = new TextField();
         uname.setPromptText("Enter your username here");//shouldn't be seen but user may mess up life so
         root0.add(uname,1,1);
@@ -68,7 +74,7 @@ public class Main extends Application {
 
                 // Finish the graphical setup
                 Scene scene = new Scene(root, Constants.SCREEN_X, Constants.SCREEN_Y);
-                scene.getStylesheets().add(this.getClass().getResource("styles.css").toExternalForm());
+                scene.getStylesheets().add(Main.class.getResource("styles.css").toExternalForm());
                 primaryStage.setTitle("Snake");
                 primaryStage.setScene(scene);
                 primaryStage.show();
@@ -77,16 +83,13 @@ public class Main extends Application {
                 mainframe.run();
 
                 // Here you go jack < :) >
-                this.game = mainframe;
+                game = mainframe;
 
                 // Keybinds
                 scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> mainframe.onKeyPressed(event.getCode()));
             }
         });
-
-
     }
-
     //endgame method
     public static void endgame(Stage primaryStage)
     {
@@ -138,7 +141,23 @@ public class Main extends Application {
                 highScores.addRow(i + 1, usernameLabel, scoreLabel);
             }
         });
-        root.getChildren().add(highScores);
+
+        GridPane restart = new GridPane();
+        restart.setHgap(10);
+        restart.setVgap(10);
+        restart.setAlignment(Pos.CENTER);
+
+        Button restartButton = new Button("Restart Game");
+
+        restartButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                startGame(primaryStage);
+            }
+        });
+
+        restart.add(restartButton,0,0);
+        root.getChildren().add(restart);
+        root.add(highScores,0,1);
     }
 
 }
