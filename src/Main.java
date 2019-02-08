@@ -36,8 +36,9 @@ public class Main extends Application {
         root0.setAlignment(Pos.CENTER);
 
         //sets a text field to take username
-        Text text = new Text(0, 0, "Enter a username to start the game. The game "
-                + System.lineSeparator() + " will get harder as your snake gets longer.");
+        Text text = new Text(0, 0, "Enter a name to start. The game "
+                      + System.lineSeparator() + " will get harder as your snake gets longer."+ System.lineSeparator() + "Use the arrow keys to move" +
+                System.lineSeparator() + "Hold down the key to go faster");
         TextField uname = new TextField();
         uname.setPromptText("Enter your username here");//shouldn't be seen but user may mess up life so
         root0.add(uname,1,1);
