@@ -2,9 +2,12 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,55 +24,88 @@ public class Main extends Application {
     }
     @Override
     public void start(Stage primaryStage) {
-        stage = primaryStage;
-        GridPane root = new GridPane();
-        Pane[][] cells = new Pane[Constants.BOARD_X][Constants.BOARD_Y];
+        //creates a scene for the start screen
+        GridPane root0 = new GridPane();
+        Scene scene0 = new Scene(root0,Constants.SCREEN_X, Constants.SCREEN_Y);
+        root0.setAlignment(Pos.CENTER);
 
-        // Populated `root` with an actual grid
-        IntStream.range(0, Constants.BOARD_X).forEach(r -> {
-            IntStream.range(0, Constants.BOARD_Y).forEach(c -> {
-                cells[r][c] = new Pane();
-                cells[r][c].setPrefSize(Constants.SCALE_X, Constants.SCALE_Y);
-            });
-            root.addRow(r, cells[r]);
-        });
+        //sets a text field to take username
+        Text text = new Text(0, 0, "Enter a username to start the game. The game "
+                      + System.lineSeparator() + " will get harder as your snake gets longer.");
+        TextField uname = new TextField();
+        uname.setPromptText("Enter your username here");//shouldn't be seen but user may mess up life so
+        root0.add(uname,1,1);
+        root0.add(text,0,1);
 
-        // Startup
-        Game mainframe = new Game(cells);
-        mainframe.refresh();
-
-        // Finish the graphical setup
-        Scene scene = new Scene(root, Constants.SCREEN_X, Constants.SCREEN_Y);
-        scene.getStylesheets().add(this.getClass().getResource("styles.css").toExternalForm());
-        primaryStage.setTitle("Snake");
-        primaryStage.setScene(scene);
+        //sets the scene and displays it
+        primaryStage.setTitle("Welcome to Snake");
+        primaryStage.setScene(scene0);
         primaryStage.show();
 
-        // For glory?
-        mainframe.run();
+        //waits until user presses enter to start game
+        scene0.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                //sets a username; probably makes edmund sad
+                Game.username = (uname.getText().equals("")) ? Constants.DEFAULT_USERNAME : uname.getText();
 
-        // Here you go jack
-        this.game = mainframe;
+                //creates a new scene for the main game
+                stage = primaryStage;
+                GridPane root = new GridPane();
+                Pane[][] cells = new Pane[Constants.BOARD_X][Constants.BOARD_Y];
 
-        // Keybinds
-        scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> mainframe.onKeyPressed(event.getCode()));
+                // Populated `root` with an actual grid
+                IntStream.range(0, Constants.BOARD_X).forEach(r -> {
+                    IntStream.range(0, Constants.BOARD_Y).forEach(c -> {
+                        cells[r][c] = new Pane();
+                        cells[r][c].setPrefSize(Constants.SCALE_X, Constants.SCALE_Y);
+                    });
+                    root.addRow(r, cells[r]);
+                });
+
+                // Startup
+                Game mainframe = new Game(cells);
+                mainframe.refresh();
+
+                // Finish the graphical setup
+                Scene scene = new Scene(root, Constants.SCREEN_X, Constants.SCREEN_Y);
+                scene.getStylesheets().add(this.getClass().getResource("styles.css").toExternalForm());
+                primaryStage.setTitle("Snake");
+                primaryStage.setScene(scene);
+                primaryStage.show();
+
+                // For glory?
+                mainframe.run();
+
+                // Here you go jack < :) >
+                this.game = mainframe;
+
+                // Keybinds
+                scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> mainframe.onKeyPressed(event.getCode()));
+            }
+        });
+
+
     }
 
     //endgame method
     public static void endgame(Stage primaryStage)
     {
+        //sets up the scene for the leaderboard
         GridPane root = new GridPane();
         Scene scene = new Scene(root, Constants.SCREEN_X, Constants.SCREEN_Y);
-        primaryStage.setTitle("Snake");
+        primaryStage.setTitle("Leaderboard");
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        //adds score the csv file
         try {
-            Backend.write(new ArrayList<>(Arrays.asList(game.getUsername(), String.valueOf(game.getScore()))));
+            Backend.write(new ArrayList<>(Arrays.asList(game.getUsername(), String.valueOf(game.getLength()))));
         } catch (IOException err) {
             err.printStackTrace();
         }
 
+        //sets up gridpane for the highscores and populates it; too lazy to comment the rest
+        //TODO comment the rest
         GridPane highScores = new GridPane();
         highScores.setHgap(10);
         highScores.setVgap(10);
@@ -80,7 +116,7 @@ public class Main extends Application {
         usernameHeader.setText("Username");
 
         Label scoreHeader = new Label();
-        scoreHeader.setText("Score");
+        scoreHeader.setText("Length");
 
         highScores.addRow(0, usernameHeader, scoreHeader);
 

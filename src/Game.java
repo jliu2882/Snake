@@ -15,8 +15,8 @@ public class Game {
 
     private Direction nextDirection = Directions.RIGHT;
 
-    private int score;
-    private String username;
+    private int length = 1;
+    public static String username;
     private boolean forceTick;
 
     public Game(Pane[][] cells) {
@@ -111,7 +111,7 @@ public class Game {
                 // Generate new food
                 Food food = new Food(this.generatePosition());
                 this.board.tileAt(food.getPosition()).setEntity(food);
-                score++;
+                length++;
             }
 
             this.board.tileAt(lastPosition).setEntity(null);
@@ -190,12 +190,12 @@ public class Game {
     }
 
     /**
-     * The score registered in the game
+     * The length registered in the game
      *
-     * @return the one and only score the player has
+     * @return the one and only length the player has
      */
-    public int getScore() {
-        return score;
+    public int getLength() {
+        return length;
     }
     /**
      * The username registered in the game
@@ -205,9 +205,4 @@ public class Game {
     public String getUsername() {
         return username;
     }
-
-    /**
-     * Endgame Scene
-     * Creates a new scene that serves as a "Game Over" screen;
-     */
 }
