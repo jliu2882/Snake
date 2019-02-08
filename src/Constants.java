@@ -2,8 +2,8 @@ public class Constants {
     public static final int SCREEN_X = 1000;
     public static final int SCREEN_Y = 1000;
 
-    public static final int BOARD_X = 30;
-    public static final int BOARD_Y = 30;
+    public static final int BOARD_X = 20;
+    public static final int BOARD_Y = 20;
 
     public static final int SNAKE_INITIAL_X = Constants.BOARD_X / 2 - 1;
     public static final int SNAKE_INITIAL_Y = Constants.BOARD_Y / 5 - 1;
